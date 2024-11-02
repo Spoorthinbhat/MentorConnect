@@ -1,12 +1,10 @@
+import axios from 'axios'; // Import Axios
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import background from '../Photos/Background-overlay.png';
 import './Login.css';
 
 const Login = () => {
   const [isSignUp, setIsSignUp] = useState(true); // Toggling between Sign Up and Login
-  const navigate = useNavigate(); // Initialize useNavigate for navigation
-
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -26,18 +24,32 @@ const Login = () => {
   };
 
   // Form submission handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (isSignUp && formData.password !== formData.confirmPassword) {
       alert("Passwords don't match!");
-    } else {
-      console.log(formData); 
+      return;
+    }
 
-      // If it's a sign-up and valid, navigate to the Identity component
+    try {
+      const url = isSignUp ? 'http://localhost:5000/auth/signup' : 'http://localhost:5000/auth/login'; // Adjust the URL based on your backend
+      // Adjust the URL based on your backend
+      const response = await axios.post(url, formData);
+
       if (isSignUp) {
-        navigate('/identity'); // Redirect to the Identity component
+        alert("Signup successful!");
+        // Optionally, navigate to the Identity component or another page
+        // navigate('/identity');
+      } else {
+        alert("Login successful!");
+        // Store the JWT token in local storage or a global state
+        localStorage.setItem('token', response.data.token);
+        // Optionally, navigate to another page
+        // navigate('/dashboard');
       }
+    } catch (error) {
+      alert(error.response?.data?.message || "An error occurred!");
     }
   };
 
