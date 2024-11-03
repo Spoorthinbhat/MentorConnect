@@ -9,7 +9,7 @@ const slotSchema = new mongoose.Schema({
     {
       startTime: { type: String, required: true },
       endTime: { type: String, required: true },
-      remainingSeats: { type: Number, required: true },
+      bookedSeats: { type: Number, required: true, default: 0 }, // Change to bookedSeats
     },
   ],
 });

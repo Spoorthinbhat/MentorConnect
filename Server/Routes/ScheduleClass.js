@@ -78,8 +78,9 @@ router.patch("/:id/slots/:date/:startTime", async (req, res) => {
     const slot = schedule.slots.find((slot) => slot.date === date);
     const timeSlot = slot.times.find((time) => time.startTime === startTime);
 
-    if (timeSlot && timeSlot.bookedSeats > 0) {
-      timeSlot.bookedSeats -= 1; // Decrement the remaining seats
+    // Check if bookedSeats is less than maxParticipants
+    if (timeSlot && timeSlot.bookedSeats < schedule.maxParticipants) {
+      timeSlot.bookedSeats += 1; // Increment the booked seats
       await schedule.save();
       res.status(200).json({ message: "Remaining seats updated successfully" });
     } else {

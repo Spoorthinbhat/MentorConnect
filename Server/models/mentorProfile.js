@@ -16,10 +16,6 @@ const mentorProfileSchema = new mongoose.Schema({
     of: Number, // Each expertise area maps to a number (years of experience)
     required: false,
   },
-  professionalTitles: {
-    type: [String], // Array of strings for multiple professional titles
-    required: false,
-  },
   educationalBackground: {
     type: [String], // Array of strings for educational qualifications
     required: false,
