@@ -16,7 +16,9 @@ class MentorProfileData {
     this.photo = null; // To handle the profile photo upload
     this.expertise = ''; // Add expertise field
     this.yearsOfExperience = ''; // Add yearsOfExperience field
+    this.cost='';
   }
+
 
   addProfessionalTitle(expertise, years) {
     this.professionalTitles.push({ expertise, years });
@@ -156,58 +158,37 @@ const MentorProfile = () => {
     if (file) {
       setFormData((prevData) => ({
         ...prevData,
-        photo: file, // Store the file directly instead of a URL
+        photo: file, // Store the file directly
       }));
+      
+      // Create an image preview URL
+      const previewUrl = URL.createObjectURL(file);
+      // setImagePreview(previewUrl); // Set the image preview state
     }
   };
   
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
 
-  
-  //   try {
-  //     const response = await axios.post('http://localhost:5000/mentors/upload', formData); // Ensure the URL is correct
-  //     console.log('Success:', response.data); // Handle success
-  
-  //     // Clear the form data
-  //     setFormData({
-  //       profilePhoto: '',
-  //       mentoringGoals: '',
-  //       linkedin: '',
-  //       blog: '',
-  //     });
-  
-  //     // Alert success message
-  //     alert('Posted successfully!');
-  
-  //   } catch (error) {
-  //     console.error('Error:', error.response.data); // Log error details
-  //     alert('Error posting the profile!'); // Optionally show an error alert
-  //   }
-  // };
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const email = "me@gmail.com"; // Retrieve email from local storage if needed
+    const email = "mean@gmail.com"; // Retrieve email from local storage if needed
   
-    // Convert professionalTitles array into an object
-    // Example input: [{ expertise: "Software Engineer", years: "2" }, { expertise: "Data Scientist", years: "3" }]
-    // Example output: { "Software Engineer": { years: "2", expertise: "Software Engineer" }, "Data Scientist": { years: "3", expertise: "Data Scientist" } }
-    const professionalTitlesObj = formData.professionalTitles.reduce((acc, title) => {
+    const professionalTitlesArray = formData.professionalTitles.reduce((acc, title) => {
       if (title.expertise && title.years) {
-        acc[title.expertise] = {
+        acc.push({
           years: title.years.toString(), // Ensure years is a string
           expertise: title.expertise      // Retain expertise as part of the object
-        };
+        });
       }
       return acc;
-    }, {});
+    }, []);
+    
   
     // Create the final data object for submission
     const updatedFormData = {
       ...formData,
-      professionalTitles: professionalTitlesObj, // Assign the transformed professionalTitles object
+      professionalTitles: professionalTitlesArray, // Assign the transformed professionalTitles object
       email: email, // Include email in the submission
     };
   
@@ -229,7 +210,8 @@ const MentorProfile = () => {
         mentoringGoals: "",
         linkedInLink: "",
         blogLink: "",
-        image: ""
+        image: "",
+        cost: ''
       });
     } catch (error) {
       console.error('Error:', error.response?.data || error.message);
@@ -244,25 +226,25 @@ const MentorProfile = () => {
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-5 gap-4">
           {/* First Column */}
           <div className="col-span-1 p-4 bg-white rounded-md shadow-sm">
-            <div className="flex flex-col items-center mb-4">
-              <div
-                className="w-32 h-32 rounded-full mb-2 cursor-pointer border border-gray-300 flex items-center justify-center"
-                onClick={() => document.getElementById('photoInput').click()} // Trigger file input on click
-              >
-                {formData.photo ? (
-                  <img src={formData.photo} alt="Profile" className="w-full h-full rounded-full" />
-                ) : (
-                  <span className="text-gray-500">No Photo</span>
-                )}
-              </div>
-              <input
-                type="file"
-                id="photoInput"
-                onChange={handlePhotoChange}
-                className="hidden" // Hide the input
-                accept="image/*" // Accept only image files
-              />
-            </div>
+          <div className="flex flex-col items-center mb-4">
+  <div
+    className="w-32 h-32 rounded-full mb-2 cursor-pointer border border-gray-300 flex items-center justify-center"
+    onClick={() => document.getElementById('photoInput').click()} // Trigger file input on click
+  >
+    {formData.photo ? (
+      <img src={URL.createObjectURL(formData.photo)}  alt="Profile" className="w-full h-full rounded-full" />
+    ) : (
+      <span className="text-gray-500">No Photo</span>
+    )}
+  </div>
+  <input
+    type="file"
+    id="photoInput"
+    onChange={handlePhotoChange}
+    className="hidden" // Hide the input
+    accept="image/*" // Accept only image files
+  />
+</div>
             <div>
               <label className="block font-semibold">Name</label>
               <input
@@ -299,6 +281,28 @@ const MentorProfile = () => {
                 className="w-full p-2 border border-gray-300 rounded-md mb-2"
               />
             </div>
+            {/* <div className="mt-4">
+      <label className="block font-semibold">Cost per Hour &#8377;</label>
+      <input
+        type="number"
+        id="cost"
+        value={formData.cost}
+        onChange={handleChange}
+        placeholder="Enter your hourly rate"
+        className="w-full p-2 border border-gray-300 rounded-md mb-2"
+      />
+    </div> */}
+    <div>
+        <label className="block font-semibold">Cost per Hour &#8377;</label>
+        <input
+          type="number"
+          name="cost" // Ensure the name matches
+          value={formData.cost}
+          onChange={handleChange}
+          placeholder="Enter your hourly rate"
+          className="w-full p-2 border border-gray-300 rounded-md mb-2"
+        />
+      </div>
           </div>
 
           {/* Second Column */}

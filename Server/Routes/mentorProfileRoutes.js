@@ -50,6 +50,15 @@ router.put("/update/:id", async (req, res) => {
     res.status(500).json({ error: "Error updating mentor profile" });
   }
 });
+router.get("/all", async (req, res) => {
+  try {
+    const mentorProfiles = await MentorProfile.find();
+    res.status(200).json(mentorProfiles);
+  } catch (error) {
+    console.error("Error retrieving all mentor profiles:", error);
+    res.status(500).json({ error: "Error retrieving all mentor profiles" });
+  }
+});
 
 // Retrieve a mentor profile by ID
 router.get("/:id", async (req, res) => {

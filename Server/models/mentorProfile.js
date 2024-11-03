@@ -49,9 +49,13 @@ const mentorProfileSchema = new mongoose.Schema({
     type: String,
     required: false,
   },
-  image: {
-    type: String, // Store the image as a Base64 string
-    required: false,
+  cost: {
+    type: Number,
+    required: true,
+  },
+  photo: {
+    data: Buffer, // The binary data of the image
+    contentType: String,
   },
 });
 
