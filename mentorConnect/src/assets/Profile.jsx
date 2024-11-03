@@ -1,9 +1,9 @@
+import axios from 'axios';
 import React, { useState } from 'react';
-
 class MentorProfileData {
   constructor() {
     this.name = '';
-    this.email = '';
+    this.email = 'mentor@gmail.com';
     this.professionalTitles = [];
     this.educationalBackground = [];
     this.mentoringStyle = []; // New field for mentoring style
@@ -14,6 +14,8 @@ class MentorProfileData {
     this.linkedInLink = ''; // New field for LinkedIn link
     this.blogLink = ''; // New field for blog link
     this.photo = null; // To handle the profile photo upload
+    this.expertise = ''; // Add expertise field
+    this.yearsOfExperience = ''; // Add yearsOfExperience field
   }
 
   addProfessionalTitle(expertise, years) {
@@ -150,15 +152,91 @@ const MentorProfile = () => {
   };
 
   const handlePhotoChange = (e) => {
-    setFormData((prevData) => ({ ...prevData, photo: URL.createObjectURL(e.target.files[0]) }));
+    const file = e.target.files[0];
+    if (file) {
+      setFormData((prevData) => ({
+        ...prevData,
+        photo: file, // Store the file directly instead of a URL
+      }));
+    }
   };
+  
 
-  const handleSubmit = (e) => {
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  
+  //   try {
+  //     const response = await axios.post('http://localhost:5000/mentors/upload', formData); // Ensure the URL is correct
+  //     console.log('Success:', response.data); // Handle success
+  
+  //     // Clear the form data
+  //     setFormData({
+  //       profilePhoto: '',
+  //       mentoringGoals: '',
+  //       linkedin: '',
+  //       blog: '',
+  //     });
+  
+  //     // Alert success message
+  //     alert('Posted successfully!');
+  
+  //   } catch (error) {
+  //     console.error('Error:', error.response.data); // Log error details
+  //     alert('Error posting the profile!'); // Optionally show an error alert
+  //   }
+  // };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Submit form data
-    console.log(formData);
+  
+    const email = "me@gmail.com"; // Retrieve email from local storage if needed
+  
+    // Convert professionalTitles array into an object
+    // Example input: [{ expertise: "Software Engineer", years: "2" }, { expertise: "Data Scientist", years: "3" }]
+    // Example output: { "Software Engineer": { years: "2", expertise: "Software Engineer" }, "Data Scientist": { years: "3", expertise: "Data Scientist" } }
+    const professionalTitlesObj = formData.professionalTitles.reduce((acc, title) => {
+      if (title.expertise && title.years) {
+        acc[title.expertise] = {
+          years: title.years.toString(), // Ensure years is a string
+          expertise: title.expertise      // Retain expertise as part of the object
+        };
+      }
+      return acc;
+    }, {});
+  
+    // Create the final data object for submission
+    const updatedFormData = {
+      ...formData,
+      professionalTitles: professionalTitlesObj, // Assign the transformed professionalTitles object
+      email: email, // Include email in the submission
+    };
+  
+    console.log('Updated Form Data:', JSON.stringify(updatedFormData, null, 2)); // Log for verification
+  
+    try {
+      const response = await axios.post('http://localhost:5000/mentors/upload', updatedFormData);
+      console.log('Success:', response.data);
+      alert('Posted successfully!');
+      setFormData({
+        name: "",
+        email: "",
+        professionalTitles: [],
+        educationalBackground: [],
+        mentoringStyle: [],
+        availability: "",
+        languagesSpoken: [],
+        pastMentoringExperience: "",
+        mentoringGoals: "",
+        linkedInLink: "",
+        blogLink: "",
+        image: ""
+      });
+    } catch (error) {
+      console.error('Error:', error.response?.data || error.message);
+      alert('Error posting the profile!');
+    }
   };
-
+  
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <div className="max-w-6xl w-full p-5 bg-blue-100 rounded-md shadow-md">
@@ -202,7 +280,8 @@ const MentorProfile = () => {
               <input
                 type="email"
                 name="email"
-                value={localStorage.getItem("mentorEmail")}
+                // value={localStorage.getItem("mentorEmail")}
+                value="mentor@gmail.com"
                 onChange={handleChange}
                 placeholder="Enter your email"
                 readOnly

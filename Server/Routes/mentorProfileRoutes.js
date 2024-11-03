@@ -1,70 +1,68 @@
-// const express = require("express");
-// const MentorProfile = require("../models/mentorProfile");
+const express = require("express");
+const MentorProfile = require("../models/mentorProfile");
 
-// const router = express.Router();
+const router = express.Router();
 
-// // Create a new mentor profile
-// router.post("/", async (req, res) => {
-//   try {
-//     const mentorProfile = new MentorProfile(req.body);
-//     await mentorProfile.save();
-//     res.status(201).send(mentorProfile);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
+// Upload a new mentor profile
+router.post("/upload", async (req, res) => {
+  try {
+    console.log("Received body:", req.body); // Log the incoming request
+    const mentorProfile = new MentorProfile(req.body);
+    await mentorProfile.save();
+    res.status(201).json({
+      message: "Mentor profile created successfully",
+      profile: mentorProfile,
+    });
+  } catch (error) {
+    console.error("Error creating mentor profile:", error);
+    res.status(400).json({ message: "Error creating mentor profile", error });
+  }
+});
 
-// // Get all mentor profiles
-// router.get("/", async (req, res) => {
-//   try {
-//     const mentorProfiles = await MentorProfile.find();
-//     res.send(mentorProfiles);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+// Update an existing mentor profile
+router.put("/update/:id", async (req, res) => {
+  const { name, email, mentoringGoals, imageBase64 } = req.body;
 
-// // Get a mentor profile by ID
-// router.get("/:id", async (req, res) => {
-//   try {
-//     const mentorProfile = await MentorProfile.findById(req.params.id);
-//     if (!mentorProfile) {
-//       return res.status(404).send();
-//     }
-//     res.send(mentorProfile);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+  // Validate input data
+  if (!name || !email || !mentoringGoals) {
+    return res
+      .status(400)
+      .json({ error: "Name, email, and mentoring goals are required" });
+  }
 
-// // Update a mentor profile by ID
-// router.patch("/:id", async (req, res) => {
-//   try {
-//     const mentorProfile = await MentorProfile.findByIdAndUpdate(
-//       req.params.id,
-//       req.body,
-//       { new: true }
-//     );
-//     if (!mentorProfile) {
-//       return res.status(404).send();
-//     }
-//     res.send(mentorProfile);
-//   } catch (error) {
-//     res.status(400).send(error);
-//   }
-// });
+  try {
+    const updatedProfile = await MentorProfile.findByIdAndUpdate(
+      req.params.id,
+      { name, email, mentoringGoals, image: imageBase64 },
+      { new: true, runValidators: true } // Return the updated document and run validators
+    );
 
-// // Delete a mentor profile by ID
-// router.delete("/:id", async (req, res) => {
-//   try {
-//     const mentorProfile = await MentorProfile.findByIdAndDelete(req.params.id);
-//     if (!mentorProfile) {
-//       return res.status(404).send();
-//     }
-//     res.send(mentorProfile);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// });
+    if (!updatedProfile) {
+      return res.status(404).json({ error: "Mentor profile not found" });
+    }
 
-// module.exports = router;
+    res.status(200).json({
+      message: "Mentor profile updated successfully",
+      profile: updatedProfile,
+    });
+  } catch (error) {
+    console.error("Error updating mentor profile:", error); // Log the error for debugging
+    res.status(500).json({ error: "Error updating mentor profile" });
+  }
+});
+
+// Retrieve a mentor profile by ID
+router.get("/:id", async (req, res) => {
+  try {
+    const mentorProfile = await MentorProfile.findById(req.params.id);
+    if (!mentorProfile) {
+      return res.status(404).json({ error: "Mentor profile not found" });
+    }
+    res.status(200).json(mentorProfile);
+  } catch (error) {
+    console.error("Error retrieving mentor profile:", error); // Log the error for debugging
+    res.status(500).json({ error: "Error retrieving mentor profile" });
+  }
+});
+
+module.exports = router;

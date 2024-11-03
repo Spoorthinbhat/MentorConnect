@@ -11,17 +11,18 @@ const mentorProfileSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  expertise: {
-    type: Map, // Using Map to store expertise areas and years of experience
-    of: Number, // Each expertise area maps to a number (years of experience)
-    required: false,
-  },
+  professionalTitles: [
+    {
+      expertise: { type: String, required: true },
+      years: { type: String, required: true },
+    },
+  ],
   educationalBackground: {
     type: [String], // Array of strings for educational qualifications
     required: false,
   },
   mentoringStyle: {
-    type: String,
+    type: [String], // Change to array of strings to allow multiple selections
     required: false,
   },
   availability: {
@@ -49,8 +50,7 @@ const mentorProfileSchema = new mongoose.Schema({
     required: false,
   },
   image: {
-    data: Buffer,
-    contentType: String,
+    type: String, // Store the image as a Base64 string
     required: false,
   },
 });
