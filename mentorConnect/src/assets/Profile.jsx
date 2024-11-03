@@ -6,7 +6,7 @@ class MentorProfileData {
     this.email = '';
     this.professionalTitles = [];
     this.educationalBackground = [];
-    this.mentoringStyle = ''; // New field for mentoring style
+    this.mentoringStyle = []; // New field for mentoring style
     this.availability = '';
     this.languagesSpoken = [];
     this.pastMentoringExperience = '';
@@ -51,7 +51,56 @@ const MentorProfile = () => {
       [name]: value,
     }));
   };
+  const mentorStyles = [
+    "Goal-oriented",
+    "Hands-on",
+    "Career-focused",
+    "Project-based",
+    "Skill-development",
+  ];
+  const toggleMentoringStyle = (style) => {
+    setFormData((prevData) => {
+      const isSelected = prevData.mentoringStyle.includes(style); // Check if the style is already selected
+      const updatedStyles = isSelected
+        ? prevData.mentoringStyle.filter(s => s !== style) // Remove the style if it's already selected
+        : [...prevData.mentoringStyle, style]; // Add the style if it's not selected
+      
+      return {
+        ...prevData,
+        mentoringStyle: updatedStyles, // Update the mentoringStyle in the formData
+      };
+    });
+  };
 
+  // Toggles checkbox selection
+  <div className="col-span-5 p-4 bg-white rounded-md shadow-sm">
+  <label className="block font-semibold mb-2">Select Mentoring Style</label>
+  <div className="flex flex-wrap gap-2">
+    {mentorStyles.map((style) => (
+      <label key={style} className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={formData.mentoringStyle.includes(style)}
+          onChange={() => handleMentorStyleChange(style)}
+          className="form-checkbox"
+        />
+        <span>{style}</span>
+      </label>
+    ))}
+  </div>
+
+  {/* Display Selected Mentoring Styles */}
+  {formData.mentoringStyle.length > 0 && (
+    <div className="mt-4 p-2 border border-gray-300 rounded-md bg-gray-100">
+      <h2 className="font-semibold">Selected Mentoring Styles:</h2>
+      <ul className="list-disc list-inside">
+        {formData.mentoringStyle.map((style) => (
+          <li key={style}>{style}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+</div>
   const handleAddProfessionalTitle = () => {
     if (formData.expertise && formData.yearsOfExperience) {
       const newTitle = { expertise: formData.expertise, years: formData.yearsOfExperience };
@@ -221,18 +270,34 @@ const MentorProfile = () => {
                 </div>
               )}
             </div>
+            <div className="col-span-5 p-4 bg-white rounded-md shadow-sm">
+  <label className="block font-semibold mb-2">Select Mentoring Style</label>
+  <div className="flex flex-wrap gap-2">
+    {mentorStyles.map((style) => (
+      <label key={style} className="flex items-center space-x-2">
+        <input
+          type="checkbox"
+          checked={formData.mentoringStyle.includes(style)}
+          onChange={() => toggleMentoringStyle(style)} // Updated this line
+          className="form-checkbox"
+        />
+        <span>{style}</span>
+      </label>
+    ))}
+  </div>
 
-            <div className="mt-4">
-              <label className="block font-semibold">Mentoring Style</label>
-              <input
-                type="text"
-                name="mentoringStyle"
-                value={formData.mentoringStyle}
-                onChange={handleChange}
-                placeholder="Enter mentoring style"
-                className="w-full p-2 border border-gray-300 rounded-md mb-2"
-              />
-            </div>
+  {/* Display Selected Mentoring Styles */}
+  {formData.mentoringStyle.length > 0 && (
+    <div className="mt-4 p-2 border border-gray-300 rounded-md bg-gray-100">
+      <h2 className="font-semibold">Selected Mentoring Styles:</h2>
+      <ul className="list-disc list-inside">
+        {formData.mentoringStyle.map((style) => (
+          <li key={style}>{style}</li>
+        ))}
+      </ul>
+    </div>
+  )}
+</div>
 
             <div className="mt-4">
               <label className="block font-semibold">Educational Background</label>
@@ -374,3 +439,4 @@ const MentorProfile = () => {
 };
 
 export default MentorProfile;
+

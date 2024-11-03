@@ -1,13 +1,16 @@
 import React from 'react';
-import AllClass from './assets/AllClass';
-// import ScheduledClass from './assets/ScheduledClass';
+import Profile from './assets/Profile';
 function App() {
   return (
     <div>
+      
+      {/* <VideoApp></VideoApp> */}
+      {/* <MeetingView></MeetingView> */}
+      {/* <ParticipantView></ParticipantView> */}
       {/* <ScheduledClass></ScheduledClass> */}
-      <AllClass></AllClass>
+      {/* <AllClass></AllClass> */}
       {/* <MentorScheduleClass></MentorScheduleClass> */}
-      {/* <Profile></Profile> */}
+      <Profile></Profile>
     {/* <Login></Login> */}
    {/* <Home></Home>
    <Identity></Identity> */}
