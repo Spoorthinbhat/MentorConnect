@@ -8,7 +8,7 @@ const app = express();
 const authRoutes = require("./Routes/auth.js"); // Update with your actual path
 const ScheduleRoutes = require("./Routes/ScheduleClass.js"); // Update with your actual path
 const mentorRoutes = require("./Routes/mentorProfileRoutes");
-
+const classRequestRoutes = require("./Routes/classRequestRoutes");
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/schedule", ScheduleRoutes);
 app.use("/mentors", mentorRoutes); // Register the Schedule router
+app.use("/request", classRequestRoutes);
 
 // Start the server
 const port = process.env.PORT || 5000;
