@@ -11,6 +11,15 @@ const classRequestSchema = new mongoose.Schema({
   language: { type: String, required: true },
   duration: { type: String, required: true },
   level: { type: String, required: true },
+  status: {
+    type: String,
+    enum: ["pending", "rejected", "accepted"],
+    default: "pending",
+    required: false,
+  },
+  scheduledDate: { type: Date, required: false },
+  startTime: { type: String, required: false, default: "Null" }, // Format: "HH:mm"
+  endTime: { type: String, required: false, default: "Null" }, // Format: "HH:mm"
 });
 
 module.exports = mongoose.model("ClassRequest", classRequestSchema);

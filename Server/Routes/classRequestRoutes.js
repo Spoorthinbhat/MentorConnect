@@ -58,23 +58,67 @@ router.post("/class-request", async (req, res) => {
 });
 
 // GET route to retrieve class requests by mentor email
-router.get("/class-request/mentor/:mentorEmail", async (req, res) => {
-  const { mentorEmail } = req.params;
+router.get("/", async (req, res) => {
+  const { email } = req.query; // Expect email as a query parameter
 
   try {
-    // Find all class requests where mentorEmail matches the provided email
-    const classRequests = await ClassRequest.find({ mentorEmail });
+    // Find ClassRequests where studentEmail or mentorEmail matches the provided email
+    const classRequests = await ClassRequest.find({
+      $or: [{ studentEmail: email }, { mentorEmail: email }],
+    });
 
-    if (classRequests.length > 0) {
-      res.status(200).json(classRequests);
-    } else {
-      res.status(404).json({
-        message: "No class requests found for the provided mentor email",
-      });
-    }
+    // Return the found ClassRequests
+    res.status(200).json(classRequests);
   } catch (error) {
-    console.error("Error retrieving class requests:", error);
-    res.status(500).json({ error: "Failed to retrieve class requests" });
+    // Handle errors
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
+
+router.put("/:id", async (req, res) => {
+  const { status, scheduledDate, startTime, endTime } = req.body;
+
+  // Initialize an object to hold the fields to be updated
+  const updateFields = {};
+
+  // Check the status and update fields accordingly
+  if (status === "rejected") {
+    // If rejected, only update the status
+    updateFields.status = status; // Update only status to the new value
+  } else if (status === "accepted") {
+    // If accepted, update the status
+    updateFields.status = status;
+
+    // Conditionally add fields to updateFields if they are provided
+    if (scheduledDate !== undefined) {
+      updateFields.scheduledDate = scheduledDate;
+    }
+    if (startTime !== undefined) {
+      updateFields.startTime = startTime;
+    }
+    if (endTime !== undefined) {
+      updateFields.endTime = endTime;
+    }
+  }
+
+  try {
+    // Find the ClassRequest by ID and update the fields
+    const updatedClassRequest = await ClassRequest.findByIdAndUpdate(
+      req.params.id,
+      updateFields,
+      { new: true, runValidators: true } // return the updated document and run validators
+    );
+
+    // If the ClassRequest was not found, return a 404 error
+    if (!updatedClassRequest) {
+      return res.status(404).json({ message: "ClassRequest not found" });
+    }
+
+    // Return the updated ClassRequest
+    res.status(200).json(updatedClassRequest);
+  } catch (error) {
+    // Handle validation errors or other errors
+    res.status(400).json({ message: error.message });
   }
 });
 
