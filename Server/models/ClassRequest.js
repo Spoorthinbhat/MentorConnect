@@ -20,6 +20,8 @@ const classRequestSchema = new mongoose.Schema({
   scheduledDate: { type: Date, required: false },
   startTime: { type: String, required: false, default: "Null" }, // Format: "HH:mm"
   endTime: { type: String, required: false, default: "Null" }, // Format: "HH:mm"
+  meetingId: { type: String, required: false, default: null },
+  paid: { type: Boolean, required: true, default: false },
 });
 
 module.exports = mongoose.model("ClassRequest", classRequestSchema);

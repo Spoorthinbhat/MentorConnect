@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { Calendar, Check, Clock, Edit, Filter, Globe, GraduationCap, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { createMeeting } from "../api";
+
 
 const ClassRequestsDashboard = () => {
   const [requests, setRequests] = useState([]);
@@ -12,7 +14,6 @@ const ClassRequestsDashboard = () => {
   const [selectedEndTime, setSelectedEndTime] = useState('');
   const [selectedRequestId, setSelectedRequestId] = useState(null);
 
-  // Fetch class requests on component mount
   useEffect(() => {
     const fetchClassRequests = async () => {
       const email = "mentor@example.com"; // Placeholder email
@@ -27,6 +28,7 @@ const ClassRequestsDashboard = () => {
 
     fetchClassRequests();
   }, []);
+  
 
   const handleAccept = (id) => {
     console.log(id);
@@ -34,31 +36,52 @@ const ClassRequestsDashboard = () => {
     setSelectedRequestId(id);
     console.log(selectedRequestId);
   };
+  const _handleOnCreateMeeting = async () => {
+    try {
+      return await createMeeting();
+    } catch (error) {
+      console.error("Error creating meeting:", error);
+      return null;
+    }
+  };
+  
 
   const handleSchedule = async () => {
     if (selectedDate && selectedStartTime && selectedEndTime) {
       try {
+        const meetingId = (await _handleOnCreateMeeting()).meetingId;
+        if (!meetingId) throw new Error("Failed to create meeting ID.");
+        console.log(meetingId);
+  
+        // Make the PUT request to update the schedule with the meetingId
         await axios.put(`http://localhost:5000/request/${selectedRequestId}`, {
           status: 'accepted',
           scheduledDate: selectedDate,
           startTime: selectedStartTime,
           endTime: selectedEndTime,
+          meetingId: meetingId
         });
+  
         setRequests(requests.map(req =>
           req.id === selectedRequestId
             ? { ...req, status: 'accepted', scheduledDate: selectedDate, startTime: selectedStartTime, endTime: selectedEndTime }
             : req
         ));
+  
         setIsScheduleModalOpen(false);
         resetScheduleForm();
+  
         window.location.reload();
-
+        
       } catch (error) {
         console.error("Error scheduling class request:", error);
+        alert("There was an error scheduling the class request. Please try again.");
       }
+    } else {
+      alert("Please select a date, start time, and end time.");
     }
   };
-
+  
   const handleEdit = async (id) => {
     try {
       setIsEditModalOpen(true);

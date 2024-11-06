@@ -76,17 +76,15 @@ router.get("/", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  const { status, scheduledDate, startTime, endTime } = req.body;
+  const { status, scheduledDate, startTime, endTime, meetingId } = req.body;
 
   // Initialize an object to hold the fields to be updated
   const updateFields = {};
 
   // Check the status and update fields accordingly
   if (status === "rejected") {
-    // If rejected, only update the status
-    updateFields.status = status; // Update only status to the new value
+    updateFields.status = status;
   } else if (status === "accepted") {
-    // If accepted, update the status
     updateFields.status = status;
 
     // Conditionally add fields to updateFields if they are provided
@@ -99,14 +97,20 @@ router.put("/:id", async (req, res) => {
     if (endTime !== undefined) {
       updateFields.endTime = endTime;
     }
+    if (meetingId !== undefined) {
+      updateFields.meetingId = meetingId;
+      console.log("Meeting ID is being set to:", meetingId); // Log meetingId
+    }
   }
+
+  console.log("Update Fields:", updateFields); // Log updateFields to confirm structure
 
   try {
     // Find the ClassRequest by ID and update the fields
     const updatedClassRequest = await ClassRequest.findByIdAndUpdate(
       req.params.id,
       updateFields,
-      { new: true, runValidators: true } // return the updated document and run validators
+      { new: true } // return the updated document without runValidators for testing
     );
 
     // If the ClassRequest was not found, return a 404 error
@@ -117,7 +121,7 @@ router.put("/:id", async (req, res) => {
     // Return the updated ClassRequest
     res.status(200).json(updatedClassRequest);
   } catch (error) {
-    // Handle validation errors or other errors
+    console.error("Error updating ClassRequest:", error); // Detailed error logging
     res.status(400).json({ message: error.message });
   }
 });
