@@ -56,21 +56,25 @@ const Login = () => {
       if (isSignUp) {
         alert("Signup successful!");
       } else {
-        alert("Login successful!");
-        // console.log(response.data.role); 
-        console.log(response.data.token);
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('Email',response.data.email);
-      }
+        const { token, email } = response.data;
   
-      // Ensure that we are checking role correctly after login
-      if (role === 'student') {
-        console.log(response.data.role);
-        navigate('/home');  // Redirect to home page for student
-      } else if (response.data.role === 'mentor') {
-        navigate('/mentorHome');  // Redirect to mentor home page
-      } else {
-        console.error("Unknown role:", response.data.role);
+        if (!email) {
+          console.error("Email or role is missing in the response");
+          return;
+        }
+  
+        alert("Login successful!");
+        console.log(token);
+        localStorage.setItem('token', token);
+        localStorage.setItem('Email', email);
+  
+        if (role === 'student') {
+          navigate('/home');  // Redirect to home page for student
+        } else if (role === 'mentor') {
+          navigate('/mentorHome');  // Redirect to mentor home page
+        } else {
+          console.error("Unknown role:", role);
+        }
       }
     } catch (error) {
       if (error.response) {

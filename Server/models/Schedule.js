@@ -9,6 +9,7 @@ const slotSchema = new mongoose.Schema({
       endTime: { type: String, required: true },
       bookedSeats: { type: Number, required: true, default: 0 },
       participants: { type: [String], default: [] }, // Array to store participant emails
+      meetingId: { type: String },
     },
   ],
 });
