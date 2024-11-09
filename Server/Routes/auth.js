@@ -7,9 +7,15 @@ const router = express.Router();
 const JWT_SECRET = "xZC%j{u@#+|K-oq5"; // Replace with a strong secret key for production
 
 // Signup Route
+// Signup Route
 router.post("/signup", async (req, res) => {
   try {
-    const { name, phone, age, dob, email, password } = req.body;
+    const { name, phone, age, dob, email, password, role } = req.body;
+
+    // Check if role is provided
+    if (!role) {
+      return res.status(400).json({ message: "Role is required" });
+    }
 
     // Check if user already exists
     const existingUser = await User.findOne({ email });
@@ -27,6 +33,7 @@ router.post("/signup", async (req, res) => {
       dob,
       email,
       password: hashedPassword,
+      role, // Ensure role is passed correctly
     });
 
     await newUser.save();
@@ -55,7 +62,7 @@ router.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    res.status(200).json({ message: "Login successful", token, email });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
   }

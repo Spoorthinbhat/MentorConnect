@@ -60,6 +60,7 @@ const Login = () => {
         // console.log(response.data.role); 
         console.log(response.data.token);
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('Email',response.data.email);
       }
   
       // Ensure that we are checking role correctly after login

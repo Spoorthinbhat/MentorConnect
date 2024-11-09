@@ -38,6 +38,7 @@
 // export default App;
 
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import AllClass from "./assets/AllClass";
 import ClassRequestsDashboard from './assets/ClassRequestsDashboard';
 import HomePage from './assets/Home'; // Home page after successful login
 import IdentityPage from './assets/Identity'; // Identity page with login/signup
@@ -63,7 +64,8 @@ function App() {
           <Route path="/request-class" element={<RequestClass />} />
 
           <Route path="/mentors/:id" element={<Mentor />} /> {/* Mentor page */}
-          <Route path="/class-requests" element={<ClassRequestsDashboard />} /> 
+          <Route path="/class-requests" element={<ClassRequestsDashboard />} />
+          <Route path="/classes" element={<AllClass/>}></Route>
       </Routes>
     </Router>
   );

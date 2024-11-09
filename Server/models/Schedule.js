@@ -1,5 +1,3 @@
-// models/Schedule.js
-
 const mongoose = require("mongoose");
 
 // Define the slot schema
@@ -9,7 +7,8 @@ const slotSchema = new mongoose.Schema({
     {
       startTime: { type: String, required: true },
       endTime: { type: String, required: true },
-      bookedSeats: { type: Number, required: true, default: 0 }, // Change to bookedSeats
+      bookedSeats: { type: Number, required: true, default: 0 },
+      participants: { type: [String], default: [] }, // Array to store participant emails
     },
   ],
 });
