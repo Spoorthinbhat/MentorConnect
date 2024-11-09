@@ -1,18 +1,23 @@
-import React from 'react';
-import ClassRequestsDashboard from './assets/ClassRequestsDashboard';
-function App() {
-  return (
-  <div>
-      {/* <Videoapp></Videoapp> */}
-      {/* <JoinScreen></JoinScreen> */}
-      <ClassRequestsDashboard></ClassRequestsDashboard>
+// import { Route, BrowserRouter as Router, Routes } from "react-router-dom"; // Import Router, Route, and Routes
+// import JoinButton from "./assets/JoinButton"; // Import JoinButton
+// import AppPage from "./src/App"; // Assuming you have an AppPage component to render when navigating to "/app"
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         {/* Define the default route to show JoinButton */}
+//         <Route path="/" element={<JoinButton />} /> 
 
-      </div>
-  );
-}
+//         {/* Define the route for the app page */}
+//         <Route path="/app" element={<AppPage />} /> 
+//       </Routes>
+//     </Router>
+//   );
+// }
 
-export default App;
-// import React from 'react';
+// export default App;
+
+// export default App;
 // import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 // import ClassRequestsDashboard from './assets/ClassRequestsDashboard';
 // import MentorDisplay from './assets/MentorDisplay';
@@ -41,3 +46,12 @@ export default App;
 // }
 
 // export default App;
+
+import VideoApp from "./VideoApp";
+function App() {
+  return (
+<VideoApp></VideoApp>  );
+}
+
+export default App;
+
