@@ -1,11 +1,12 @@
-import React from 'react';
 import photo from '../Photos/Photo.png';
 import photo2 from '../Photos/Photo2.png';
 import HomeComponent from './HomeComponent';
+import Header from './header';
 
 const Home = () => {
   return (
     <div>
+      <Header></Header>
       {/* First Section */}
       <div className='flex items-center justify-center w-full h-screen bg-gray-100'>
         <div className='flex flex-col md:flex-row items-center justify-between w-full md:w-10/12 lg:w-full'>

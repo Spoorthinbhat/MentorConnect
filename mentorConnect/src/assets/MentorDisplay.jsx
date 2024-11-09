@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import Header from "./header";
 
 // Import images
 import availabilityIcon from '../Photos/availability.png';
@@ -33,6 +34,8 @@ function MentorProfiles() {
   };
 
   return (
+    <div>
+      <Header></Header>
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-4xl font-bold text-center mb-10 text-blue-800">Our Expert Mentors</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
@@ -103,6 +106,7 @@ function MentorProfiles() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

@@ -1,7 +1,7 @@
-;
 
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import Header from "./header";
 
 const ClassesPage = () => {
   const [classes, setClasses] = useState([]);
@@ -32,6 +32,9 @@ const ClassesPage = () => {
   };
 
   return (
+    <div>
+      <Header></Header>
+   
     <div className="max-w-3xl mx-auto p-6 bg-white shadow-lg rounded-lg">
       <h1 className="text-2xl font-bold mb-6 text-center">Scheduled Classes</h1>
       <div className="grid grid-cols-1 gap-6">
@@ -70,6 +73,7 @@ const ClassesPage = () => {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 };

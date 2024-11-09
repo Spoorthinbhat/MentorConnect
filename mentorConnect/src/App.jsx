@@ -1,17 +1,7 @@
-// import { Route, BrowserRouter as Router, Routes } from "react-router-dom"; // Import Router, Route, and Routes
-// import JoinButton from "./assets/JoinButton"; // Import JoinButton
-// import AppPage from "./src/App"; // Assuming you have an AppPage component to render when navigating to "/app"
+// import MentorDisplay from "./assets/MentorDisplay";
 // function App() {
 //   return (
-//     <Router>
-//       <Routes>
-//         {/* Define the default route to show JoinButton */}
-//         <Route path="/" element={<JoinButton />} /> 
-
-//         {/* Define the route for the app page */}
-//         <Route path="/app" element={<AppPage />} /> 
-//       </Routes>
-//     </Router>
+//     <MentorDisplay></MentorDisplay>
 //   );
 // }
 
@@ -31,8 +21,8 @@
 //       <div>
 //         <Routes>
 //           {/* Define your routes here */}
-//           <Route path="/" element={<MentorDisplay />} /> {/* Main landing page */}
-//           <Route path="/profile" element={<Profile />} /> {/* Profile page */}
+//           <Route path="/mnetors" element={<MentorDisplay />} /> {/* Main landing page */}
+//           <Route path="/mentors/profile" element={<Profile />} /> {/* Profile page */}
 //           <Route path="/request-class" element={<RequestClass />} />
 
 //           <Route path="/mentors/:id" element={<Mentor />} /> {/* Mentor page */}
@@ -47,11 +37,38 @@
 
 // export default App;
 
-import VideoApp from "./VideoApp";
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
+import ClassRequestsDashboard from './assets/ClassRequestsDashboard';
+import HomePage from './assets/Home'; // Home page after successful login
+import IdentityPage from './assets/Identity'; // Identity page with login/signup
+import LoginPage from './assets/Login'; // Separate login page
+import MentorDisplay from './assets/MentorDisplay';
+import Mentor from './assets/Mentors';
+import Profile from './assets/Profile';
+import RequestClass from './assets/RequestClass';
 function App() {
   return (
-<VideoApp></VideoApp>  );
+    <Router>
+      <Routes>
+        {/* Route for IdentityPage (Login/SignUp) */}
+        <Route path="/" element={<IdentityPage />} />
+        
+        {/* Separate Login Page Route */}
+        <Route path="/login" element={<LoginPage />} />
+        
+        {/* Home Page route after login */}
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/mentors" element={<MentorDisplay />} /> {/* Main landing page */}
+          <Route path="/profile" element={<Profile />} /> {/* Profile page */}
+          <Route path="/request-class" element={<RequestClass />} />
+
+          <Route path="/mentors/:id" element={<Mentor />} /> {/* Mentor page */}
+          <Route path="/class-requests" element={<ClassRequestsDashboard />} /> 
+      </Routes>
+    </Router>
+  );
 }
 
 export default App;
+
 
