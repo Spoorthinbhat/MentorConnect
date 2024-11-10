@@ -84,7 +84,7 @@ function MeetingView(props) {
           <div className="flex items-center justify-between px-4 py-2 bg-gray-800">
             <div className="flex items-center space-x-2">
               <Video className="w-6 h-6 text-gray-400" />
-              <h3 className="text-lg font-medium">Meeting ID: {props.meetingId}</h3>
+              {/* <h3 className="text-lg font-medium">Meeting ID: {props.meetingId}</h3> */}
             </div>
             <div className="text-sm text-gray-400">
               {participants.size} participant{participants.size !== 1 ? "s" : ""}
@@ -105,7 +105,7 @@ function MeetingView(props) {
                   />
                   {/* Participant name overlay */}
                   <div className="absolute bottom-0 left-0 right-0 p-2 bg-gradient-to-t from-black/70 to-transparent">
-                    <span className="text-sm">Participant {participantId.slice(0, 5)}</span>
+                    {/* <span className="text-sm">Participant {participantId.slice(0, 5)}</span> */}
                   </div>
                 </div>
               ))}

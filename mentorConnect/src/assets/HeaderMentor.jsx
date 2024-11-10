@@ -2,11 +2,11 @@ import { BookOpen, Calendar, Home, Users } from 'lucide-react';
 
 const Header = () => {
   const navItems = [
-    { name: 'Home', icon: <Home size={20} />, href: '/mentor-homehome' },
+    { name: 'Home', icon: <Home size={20} />, href: '/mentor-home' },
     { name: 'Profile', icon: <Users size={20} />, href: '/profile' },
     { name: 'Schedule Classes', icon: <BookOpen size={20} />, href: '/schedule-class' },
     { name: 'Class Requests', icon: <Calendar size={20} />, href: '/class-request-dashboard' },
-    { name: 'Upcoming Classes', icon: <Calendar size={20} />, href: '/Calender' },
+    { name: 'Upcoming Classes', icon: <Calendar size={20} />, href: '/scheduled-class' },
   ];
   return (
     <header className="bg-white shadow-md">

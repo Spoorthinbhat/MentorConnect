@@ -52,6 +52,8 @@ import MentorScheduleClass from './assets/MentorScheduleClass';
 import Profile from './assets/Profile';
 import RegisterdClass from "./assets/RegisteredClass";
 import RequestClass from './assets/RequestClass';
+import ScheduledClass from "./assets/ScheduledClass";
+import VideoApp from './VideoApp';
 // import MentorHome from "./assets/Home"
 function App() {
   return (
@@ -76,6 +78,8 @@ function App() {
           <Route path="/mentor-home" element={<MentorHome></MentorHome>}></Route>
           <Route path="/schedule-class" element={<MentorScheduleClass/>}/>
           <Route path="/class-request-dashboard" element={<ClassRequestsDashboard/>}></Route>
+          <Route path="/scheduled-class" element={<ScheduledClass/>}/>
+          <Route path="/join" element={<VideoApp/>}/>
 
           {/* <Route pthe="/Mentor-Profile" element */}
       </Routes>

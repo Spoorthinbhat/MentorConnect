@@ -23,6 +23,27 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.get("/by-email", async (req, res) => {
+  try {
+    const email = req.query.email;
+    if (!email) {
+      return res
+        .status(400)
+        .json({ message: "Email query parameter is required" });
+    }
+
+    const schedule = await Schedule.find({ email });
+
+    if (!schedule) {
+      return res.status(404).json({ message: "Schedule not found" });
+    }
+
+    res.status(200).json(schedule);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Get a specific schedule by ID
 router.get("/:id", async (req, res) => {
   try {
@@ -34,6 +55,8 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// Using req.query.email
 
 // Update a schedule by ID
 router.put("/:id", async (req, res) => {
