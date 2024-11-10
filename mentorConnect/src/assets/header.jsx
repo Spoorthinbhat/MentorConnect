@@ -5,7 +5,7 @@ const Header = () => {
     { name: 'Home', icon: <Home size={20} />, href: '/home' },
     { name: 'Mentors', icon: <Users size={20} />, href: '/mentors' },
     { name: 'Classes', icon: <BookOpen size={20} />, href: '/classes' },
-    { name: 'Scheduled Classes', icon: <Calendar size={20} />, href: '/scheduled' },
+    { name: 'Registered-Classes', icon: <Calendar size={20} />, href: '/Registered-Classes' },
   ];
 
   return (
