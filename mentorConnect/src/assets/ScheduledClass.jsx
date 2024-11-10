@@ -51,7 +51,28 @@ const ClassScheduleCards = () => {
     return date < today;
   };
 
+  const getUserNameByEmail = async (email) => {
+    try {
+      if (!email) {
+        throw new Error("Email parameter is required");
+      }
   
+      const response = await axios.get('http://localhost:5000/auth/name', {
+        params: { email }
+      });
+  
+      if (response.status === 200) {
+        console.log("User name retrieved successfully:", response.data.name);
+        return response.data.name;
+      } else {
+        console.error("Failed to retrieve user name:", response.data.message);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user name by email:", error.message);
+      return null;
+    }
+  };
 
   // Filter classes based on their dates
   const filterClasses = (classes) => {
@@ -64,15 +85,22 @@ const ClassScheduleCards = () => {
     })).filter(classItem => classItem.slots.length > 0);
   };
 
-  const handleJoin = (classId, slotId, timeId, meetingId) => {
+  const handleJoin = async (classId, slotId, timeId, meetingId) => {
     console.log('Joining class:', classId, 'slot:', slotId, 'time:', timeId,'Meeting ID:',meetingId);
-    const attendeeName = "John Doe";  // Replace with actual logic to get the attendee's name
+    const email = localStorage.getItem("Email"); 
+    const attendeeName = await getUserNameByEmail(email);  // Replace with actual logic to get the attendee's name
+    console.log(attendeeName);
     setMeetingDetails({ meetingId, attendeeName });
 
-    // Use navigate to pass the meeting details as state
-    navigate('/join', {
-      state: { meetingId, attendeeName },
-    });
+    if (attendeeName) {
+      setMeetingDetails({ meetingId, attendeeName });
+      
+      navigate('/join', {
+        state: { meetingId, attendeeName },
+      });
+    } else {
+      console.error("Could not retrieve the attendee name.");
+    }
   };
 
   const filteredClasses = filterClasses(classesData);

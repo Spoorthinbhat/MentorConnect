@@ -114,7 +114,6 @@ const SessionCard = () => {
       });
     } else {
       console.error("Could not retrieve the attendee name.");
-      // Optionally, you could show an error message to the user here.
     }
   };
 
