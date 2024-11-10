@@ -1,7 +1,7 @@
-import RegisteredClass from "./assets/RegisteredClass";
+import Calendar from "./assets/Calender";
 function App() {
   return (
-    <RegisteredClass></RegisteredClass>
+<Calendar></Calendar>
   );
 }
 
