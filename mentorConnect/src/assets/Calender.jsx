@@ -1,84 +1,10 @@
-// import '@fullcalendar/bootstrap5';
-// import bootstrap5Plugin from '@fullcalendar/bootstrap5';
-// import dayGridPlugin from '@fullcalendar/daygrid';
-// import FullCalendar from '@fullcalendar/react';
-// import timeGridPlugin from '@fullcalendar/timegrid';
-// import 'bootstrap-icons/font/bootstrap-icons.css';
-// import 'bootstrap/dist/css/bootstrap.min.css';
-// import { useEffect, useState } from 'react';
-
-// const ClassCalendar = () => {
-//   const [events, setEvents] = useState([]);
-
-//   useEffect(() => {
-//     const fetchClasses = async () => {
-//       try {
-//         const response = await fetch('http://localhost:5000/schedule');
-//         const data = await response.json();
-
-//         // Format the class data for FullCalendar
-//         const formattedEvents = data.flatMap(classData =>
-//           classData.slots.flatMap(slot =>
-//             slot.times.map(time => ({
-//               title: classData.title,
-//               start: `${slot.date}T${time.startTime}`,
-//               end: `${slot.date}T${time.endTime}`,
-//               description: classData.description,
-//               maxParticipants: classData.maxParticipants,
-//               bookedSeats: time.bookedSeats,
-//               participants: time.participants,
-//               skillLevel: classData.skillLevel,
-//             }))
-//           )
-//         );
-
-//         setEvents(formattedEvents);
-//       } catch (error) {
-//         console.error("Error fetching classes:", error);
-//       }
-//     };
-
-//     fetchClasses();
-//   }, []);
-
-//   return (
-//     <div className="calendar-container h-5/6 w-5/6 mx-auto mt-6 overflow-hidden" >
-//       <FullCalendar
-//       className="h-full"
-//         plugins={[dayGridPlugin, timeGridPlugin, bootstrap5Plugin]}
-//         initialView="dayGridMonth"
-//         events={events}
-//         themeSystem='bootstrap5'
-//         // height={auto}
-//         headerToolbar={{
-//           left: 'prev,next today',
-//           center: 'title',
-//           right: 'dayGridMonth,timeGridWeek,timeGridDay',
-//         }}
-//         showNonCurrentDates={false}
-//         eventClick={(info) => {
-//           // Display additional details when an event is clicked
-//           alert(
-//             `Class: ${info.event.title}\n` +
-//             `Description: ${info.event.extendedProps.description}\n` +
-//             `Skill Level: ${info.event.extendedProps.skillLevel}\n` +
-//             `Max Participants: ${info.event.extendedProps.maxParticipants}\n` +
-//             `Booked Seats: ${info.event.extendedProps.bookedSeats}\n` +
-//             `Participants: ${info.event.extendedProps.participants.join(', ')}`
-//           );
-//         }}
-//       />
-//     </div>
-//   );
-// };
-
-// export default ClassCalendar;
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import FullCalendar from '@fullcalendar/react';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
+import Header from './header';
 
 const ClassCalendar = () => {
   const [events, setEvents] = useState([]);
@@ -333,7 +259,10 @@ const ClassCalendar = () => {
   };
 
   return (
-    <div className="container-fluid h-100 w-5/6">
+    <div>
+        <Header></Header>
+
+    <div className="container-fluid h-100 w-5/6 mt-4">
       <div className="card shadow h-100">
         <div className="card-header bg-white py-2 border-bottom">
           <h2 className="card-title h5 mb-0">Class Schedule</h2>
@@ -378,6 +307,7 @@ const ClassCalendar = () => {
           />
         </div>
       </div>
+    </div>
     </div>
   );
 };

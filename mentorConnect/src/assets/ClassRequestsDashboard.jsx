@@ -2,6 +2,7 @@ import axios from 'axios';
 import { Calendar, Check, Clock, Edit, Filter, Globe, GraduationCap, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { createMeeting } from "../api";
+import HeaderMentor from "./HeaderMentor";
 
 
 const ClassRequestsDashboard = () => {
@@ -171,6 +172,8 @@ const ClassRequestsDashboard = () => {
     );
   };
   return (
+    <div>
+    <HeaderMentor></HeaderMentor>
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-indigo-50 p-6">
       {/* Header Section */}
       <div className="max-w-7xl mx-auto mb-8">
@@ -368,6 +371,7 @@ const ClassRequestsDashboard = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

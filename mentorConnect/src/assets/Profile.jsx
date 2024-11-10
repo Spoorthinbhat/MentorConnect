@@ -1,5 +1,7 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { useState } from 'react';
+import HeaderMentor from "./HeaderMentor";
+
 class MentorProfileData {
   constructor() {
     this.name = '';
@@ -220,6 +222,8 @@ const MentorProfile = () => {
   };
   
   return (
+    <div>
+      <HeaderMentor></HeaderMentor>
     <div className="flex items-center justify-center min-h-screen bg-gray-200">
       <div className="max-w-6xl w-full p-5 bg-blue-100 rounded-md shadow-md">
         <h1 className="text-2xl font-bold text-center mb-4">Mentor Profile</h1>
@@ -518,8 +522,281 @@ const MentorProfile = () => {
         </form>
       </div>
     </div>
+    </div>
   );
 };
+// return (
+//   <div>
+//     <HeaderMentor />
+//     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-blue-100 p-6">
+//       <div className="max-w-6xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
+//         <div className="bg-blue-600 p-6 text-white">
+//           <h1 className="text-3xl font-bold text-center">Mentor Profile</h1>
+//           <p className="text-center text-blue-100 mt-2">Share your expertise and help others grow</p>
+//         </div>
+        
+//         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-5 gap-6 p-6">
+//           {/* First Column */}
+//           <div className="col-span-1 space-y-6">
+//             <div className="flex flex-col items-center">
+//               <div
+//                 className="w-40 h-40 rounded-full mb-4 cursor-pointer border-2 border-blue-200 hover:border-blue-400 transition-all flex items-center justify-center bg-blue-50"
+//                 onClick={() => document.getElementById('photoInput').click()}
+//               >
+//                 {formData.photo ? (
+//                   <img src={URL.createObjectURL(formData.photo)} alt="Profile" className="w-full h-full rounded-full object-cover" />
+//                 ) : (
+//                   <Camera className="w-12 h-12 text-blue-300" />
+//                 )}
+//               </div>
+//               <input type="file" id="photoInput" onChange={handlePhotoChange} className="hidden" accept="image/*" />
+//             </div>
 
+//             <div className="space-y-4">
+//               <div className="relative">
+//                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
+//                   <User className="w-4 h-4" />
+//                   <span>Name</span>
+//                 </label>
+//                 <input
+//                   type="text"
+//                   name="name"
+//                   value={formData.name}
+//                   onChange={handleChange}
+//                   placeholder="Enter your name"
+//                   required
+//                   className="w-full p-2 pl-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//               </div>
+
+//               <div className="relative">
+//                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
+//                   <Mail className="w-4 h-4" />
+//                   <span>Email</span>
+//                 </label>
+//                 <input
+//                   type="email"
+//                   name="email"
+//                   value="mentor@gmail.com"
+//                   onChange={handleChange}
+//                   readOnly
+//                   className="w-full p-2 pl-3 border border-gray-300 rounded-md bg-gray-50"
+//                 />
+//               </div>
+
+//               <div className="relative">
+//                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
+//                   <Clock className="w-4 h-4" />
+//                   <span>Availability</span>
+//                 </label>
+//                 <input
+//                   type="text"
+//                   name="availability"
+//                   value={formData.availability}
+//                   onChange={handleChange}
+//                   placeholder="Enter availability"
+//                   className="w-full p-2 pl-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//               </div>
+
+//               <div className="relative">
+//                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-1">
+//                   <DollarSign className="w-4 h-4" />
+//                   <span>Cost per Hour ₹</span>
+//                 </label>
+//                 <input
+//                   type="number"
+//                   name="cost"
+//                   value={formData.cost}
+//                   onChange={handleChange}
+//                   placeholder="Enter your hourly rate"
+//                   className="w-full p-2 pl-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//               </div>
+//             </div>
+//           </div>
+
+//           {/* Second Column */}
+//           <div className="col-span-2 space-y-6">
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Briefcase className="w-4 h-4" />
+//                 <span>Expertise</span>
+//               </label>
+//               <div className="flex space-x-2 mb-2">
+//                 <input
+//                   type="text"
+//                   name="expertise"
+//                   value={formData.expertise}
+//                   onChange={handleChange}
+//                   placeholder="Enter expertise"
+//                   className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//                 <input
+//                   type="number"
+//                   name="yearsOfExperience"
+//                   value={formData.yearsOfExperience}
+//                   onChange={handleChange}
+//                   placeholder="Years"
+//                   className="w-20 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={handleAddProfessionalTitle}
+//                   className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+//                 >
+//                   <Plus className="w-5 h-5" />
+//                 </button>
+//               </div>
+//               {formData.professionalTitles.length > 0 && (
+//                 <div className="max-h-32 overflow-y-auto border border-gray-300 rounded-md p-2">
+//                   <div className="flex flex-wrap gap-2">
+//                     {formData.professionalTitles.map((item, index) => (
+//                       <div key={index} className="flex items-center space-x-2 bg-blue-50 border border-blue-200 rounded-md px-3 py-1">
+//                         <Award className="w-4 h-4 text-blue-500" />
+//                         <span>{item.expertise} ({item.years} years)</span>
+//                         <button
+//                           type="button"
+//                           onClick={() => handleRemoveField('professionalTitles', index)}
+//                           className="text-red-500 hover:text-red-700"
+//                         >
+//                           <X className="w-4 h-4" />
+//                         </button>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </div>
+//               )}
+//             </div>
+
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Target className="w-4 h-4" />
+//                 <span>Mentoring Style</span>
+//               </label>
+//               <div className="flex flex-wrap gap-3">
+//                 {mentorStyles.map((style) => (
+//                   <label key={style} className="flex items-center space-x-2 bg-gray-50 p-2 rounded-md border border-gray-200 cursor-pointer hover:bg-gray-100 transition-colors">
+//                     <input
+//                       type="checkbox"
+//                       checked={formData.mentoringStyle.includes(style)}
+//                       onChange={() => toggleMentoringStyle(style)}
+//                       className="form-checkbox text-blue-500 rounded"
+//                     />
+//                     <span className="text-sm">{style}</span>
+//                   </label>
+//                 ))}
+//               </div>
+//             </div>
+
+//             <div>
+//                 <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                   <GraduationCap className="w-4 h-4" />
+//                   <span>Educational Background</span>
+//                 </label>
+//                 <div className="flex space-x-2">
+//                   <input
+//                     type="text"
+//                     id="educationInput"
+//                     placeholder="Enter education"
+//                     className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                   />
+//                   <button
+//                     type="button"
+//                     onClick={handleAddEducation}
+//                     className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+//                   >
+//                     <Plus className="w-5 h-5" />
+//                   </button>
+//                 </div>
+//               {/* Education list rendering remains the same but with enhanced styling */}
+//             </div>
+//           </div>
+
+//           {/* Third Column */}
+//           <div className="col-span-2 space-y-6">
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Languages className="w-4 h-4" />
+//                 <span>Languages Spoken</span>
+//               </label>
+//               <div className="flex space-x-2">
+//                 <input
+//                   type="text"
+//                   id="languageInput"
+//                   placeholder="Enter language"
+//                   className="flex-1 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//                 />
+//                 <button
+//                   type="button"
+//                   onClick={handleAddLanguage}
+//                   className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+//                 >
+//                   <Plus className="w-5 h-5" />
+//                 </button>
+//               </div>
+//               {/* Languages list rendering remains the same but with enhanced styling */}
+//             </div>
+
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Target className="w-4 h-4" />
+//                 <span>Mentoring Goals</span>
+//               </label>
+//               <textarea
+//                 name="mentoringGoals"
+//                 value={formData.mentoringGoals}
+//                 onChange={handleChange}
+//                 placeholder="What are your mentoring goals?"
+//                 className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent h-32"
+//               />
+//             </div>
+
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Linkedin className="w-4 h-4" />
+//                 <span>LinkedIn Profile</span>
+//               </label>
+//               <input
+//                 type="text"
+//                 name="linkedInLink"
+//                 value={formData.linkedInLink}
+//                 onChange={handleChange}
+//                 placeholder="Enter your LinkedIn profile URL"
+//                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//               />
+//             </div>
+
+//             <div>
+//               <label className="flex items-center space-x-2 text-sm font-medium text-gray-700 mb-2">
+//                 <Globe className="w-4 h-4" />
+//                 <span>Blog Link</span>
+//               </label>
+//               <input
+//                 type="text"
+//                 name="blogLink"
+//                 value={formData.blogLink}
+//                 onChange={handleChange}
+//                 placeholder="Enter your blog URL"
+//                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+//               />
+//             </div>
+//           </div>
+
+//           <div className="col-span-5 flex justify-center">
+//             <button
+//               type="submit"
+//               className="flex items-center space-x-2 bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors shadow-md"
+//             >
+//               <Save className="w-5 h-5" />
+//               <span>Save Profile</span>
+//             </button>
+//           </div>
+//         </form>
+//       </div>
+//     </div>
+//   </div>
+// );
+// };
 export default MentorProfile;
 

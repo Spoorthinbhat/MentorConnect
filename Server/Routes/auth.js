@@ -68,4 +68,23 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/name", async (req, res) => {
+  try {
+    const { email } = req.query;
+    console.log(email);
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // If user is found, return their name
+    res.status(200).json({ name: user.name });
+  } catch (error) {
+    // Log error to console and return server error response
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 module.exports = router;

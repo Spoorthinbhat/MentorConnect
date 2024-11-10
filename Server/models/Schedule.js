@@ -9,7 +9,7 @@ const slotSchema = new mongoose.Schema({
       endTime: { type: String, required: true },
       bookedSeats: { type: Number, required: true, default: 0 },
       participants: { type: [String], default: [] }, // Array to store participant emails
-      meetingId: { type: String },
+      meetingId: { type: String, required: true },
     },
   ],
 });
@@ -18,6 +18,7 @@ const slotSchema = new mongoose.Schema({
 const scheduleSchema = new mongoose.Schema(
   {
     email: { type: String, required: true },
+    name: { type: String, required: true },
     title: { type: String, required: true },
     description: { type: String },
     category: { type: String },
