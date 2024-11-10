@@ -74,8 +74,9 @@ const SessionCard = () => {
     });
   };
 
-  const handleJoin = (sessionId) => {
+  const handleJoin = (sessionId,meetingId) => {
     console.log(`Joining session: ${sessionId}`);
+    console.log(`meeting Id: ${meetingId}`);
   };
 
   const filteredSessions = filterCurrentAndFutureSessions(sessions);
@@ -165,7 +166,8 @@ const SessionCard = () => {
                           </span>
                         </div>
                         <button
-                          onClick={() => handleJoin(time._id)}
+                          onClick={() => handleJoin(time._id,time.
+                            meetingId)}
                           className={`${getColorBySkillLevel(
                             session.skillLevel
                           )} text-white px-4 py-2 rounded-lg hover:opacity-90 transition-opacity duration-200 text-sm font-semibold`}

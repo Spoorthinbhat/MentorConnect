@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Book, Calendar, Clock, Globe, GraduationCap, MessageSquare, Sparkles } from 'lucide-react';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ClassRequestForm = () => { // Accept mentorEmail as a prop
@@ -26,8 +26,8 @@ const ClassRequestForm = () => { // Accept mentorEmail as a prop
     e.preventDefault();
     
     // Retrieve student email from local storage
-    // const studentEmail = localStorage.getItem('email');
-    const studentEmail = 'user@gmail.com'
+    const studentEmail = localStorage.getItem('Email');
+    // const studentEmail = 'user@gmail.com'
     if (!studentEmail) {
       alert('Student email not found in local storage');
       return;
