@@ -68,23 +68,27 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/name", async (req, res) => {
+const getUserNameByEmail = async (email) => {
   try {
-    const { email } = req.query;
-    console.log(email);
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
+    if (!email) {
+      throw new Error("Email parameter is required");
     }
 
-    // If user is found, return their name
-    res.status(200).json({ name: user.name });
+    const response = await axios.get("http://localhost:5000/auth/name", {
+      params: { email },
+    });
+
+    if (response.status === 200) {
+      console.log("User name retrieved successfully:", response.data.name);
+      return response.data.name;
+    } else {
+      console.error("Failed to retrieve user name:", response.data.message);
+      return null;
+    }
   } catch (error) {
-    // Log error to console and return server error response
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
+    console.error("Error fetching user name by email:", error.message);
+    return null;
   }
-});
+};
 
 module.exports = router;

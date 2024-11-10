@@ -1,10 +1,13 @@
+import axios from 'axios';
 import { Calendar, Clock, Layout, Users } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from './header';
-
 const SessionCard = () => {
+  const navigate = useNavigate();
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [meetingDetails, setMeetingDetails] = useState({});
 
   // Fetch data from API
   useEffect(() => {
@@ -65,6 +68,28 @@ const SessionCard = () => {
     };
     return colors[skillLevel] || 'bg-indigo-500';
   };
+  const getUserNameByEmail = async (email) => {
+    try {
+      if (!email) {
+        throw new Error("Email parameter is required");
+      }
+  
+      const response = await axios.get('http://localhost:5000/auth/name', {
+        params: { email }
+      });
+  
+      if (response.status === 200) {
+        console.log("User name retrieved successfully:", response.data.name);
+        return response.data.name;
+      } else {
+        console.error("Failed to retrieve user name:", response.data.message);
+        return null;
+      }
+    } catch (error) {
+      console.error("Error fetching user name by email:", error.message);
+      return null;
+    }
+  };
 
   const formatDate = (dateStr) => {
     return new Date(dateStr).toLocaleDateString('en-US', {
@@ -74,9 +99,23 @@ const SessionCard = () => {
     });
   };
 
-  const handleJoin = (sessionId,meetingId) => {
+  const handleJoin =  async(sessionId,meetingId) => {
     console.log(`Joining session: ${sessionId}`);
     console.log(`meeting Id: ${meetingId}`);
+    const email = localStorage.getItem("Email"); 
+    const attendeeName = await getUserNameByEmail(email);
+    console.log(attendeeName);
+    setMeetingDetails({ meetingId, attendeeName});
+    if (attendeeName) {
+      setMeetingDetails({ meetingId, attendeeName });
+      
+      navigate('/join', {
+        state: { meetingId, attendeeName },
+      });
+    } else {
+      console.error("Could not retrieve the attendee name.");
+      // Optionally, you could show an error message to the user here.
+    }
   };
 
   const filteredSessions = filterCurrentAndFutureSessions(sessions);
