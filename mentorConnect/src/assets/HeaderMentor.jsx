@@ -7,6 +7,8 @@ const Header = () => {
     { name: 'Schedule Classes', icon: <BookOpen size={20} />, href: '/schedule-class' },
     { name: 'Class Requests', icon: <Calendar size={20} />, href: '/class-request-dashboard' },
     { name: 'Upcoming Classes', icon: <Calendar size={20} />, href: '/scheduled-class' },
+    { name: 'Scheduled Requested Classes', icon: <Calendar size={20} />, href: '/requested-classes-join' },
+
   ];
   return (
     <header className="bg-white shadow-md">

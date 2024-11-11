@@ -1,8 +1,7 @@
-// import Calendar from "./assets/Calender";
-// import MentorScheduleClass from "./assets/MentorScheduleClass";
+// import RequestedSheduledClass from "./assets/RequestedSheduledClass";
 // function App() {
 //   return (
-// <MentorScheduleClass></MentorScheduleClass>
+//     <RequestedSheduledClass></RequestedSheduledClass>
 //   );
 // }
 
@@ -51,7 +50,9 @@ import Mentor from './assets/Mentors';
 import MentorScheduleClass from './assets/MentorScheduleClass';
 import Profile from './assets/Profile';
 import RegisterdClass from "./assets/RegisteredClass";
+import ReqScheduledClass from "./assets/ReqScheduledStud";
 import RequestClass from './assets/RequestClass';
+import RequestedSheduledClass from "./assets/RequestedSheduledClass";
 import ScheduledClass from "./assets/ScheduledClass";
 import VideoApp from './VideoApp';
 // import MentorHome from "./assets/Home"
@@ -80,7 +81,8 @@ function App() {
           <Route path="/class-request-dashboard" element={<ClassRequestsDashboard/>}></Route>
           <Route path="/scheduled-class" element={<ScheduledClass/>}/>
           <Route path="/join" element={<VideoApp/>}/>
-
+          <Route path="/requested-classes-join" element={<RequestedSheduledClass></RequestedSheduledClass>}/>
+          <Route path="/join-requested-classes" element={<ReqScheduledClass/>}/>
           {/* <Route pthe="/Mentor-Profile" element */}
       </Routes>
     </Router>

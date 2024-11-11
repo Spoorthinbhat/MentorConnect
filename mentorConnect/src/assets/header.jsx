@@ -7,6 +7,7 @@ const Header = () => {
     { name: 'Classes', icon: <BookOpen size={20} />, href: '/classes' },
     { name: 'Registered-Classes', icon: <Calendar size={20} />, href: '/registered-Classes' },
     { name: 'Calender', icon: <Calendar size={20} />, href: '/Calender' },
+    { name: 'Scheduled Requested Classes', icon: <Calendar size={20} />, href: '/join-requested-classes' }
   ];
 
   return (

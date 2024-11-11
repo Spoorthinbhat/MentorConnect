@@ -71,7 +71,7 @@ const Login = () => {
         if (role === 'student') {
           navigate('/home');  // Redirect to home page for student
         } else if (role === 'mentor') {
-          navigate('/mentorHome');  // Redirect to mentor home page
+          navigate('/mentor-Home');  // Redirect to mentor home page
         } else {
           console.error("Unknown role:", role);
         }
