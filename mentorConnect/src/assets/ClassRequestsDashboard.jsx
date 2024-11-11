@@ -17,7 +17,7 @@ const ClassRequestsDashboard = () => {
 
   useEffect(() => {
     const fetchClassRequests = async () => {
-      const email = "mentor@example.com"; // Placeholder email
+      const email = localStorage.getItem("Email"); // Placeholder email
       try {
         const response = await axios.get(`http://localhost:5000/request?email=${email}`);
         console.log(response.data);

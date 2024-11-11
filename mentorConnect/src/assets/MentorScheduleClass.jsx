@@ -67,8 +67,8 @@ const MentorScheduleClass = () => {
   const [slots, setSlots] = useState([]);
   const [currentSlot, setCurrentSlot] = useState({ date: "", startTime: "", endTime: "" });
   const [mentorName, setMentorName] = useState("");
-  // const email = localStorage.getItem("Email");
-  const email = "joe@example.com";
+  const email = localStorage.getItem("Email");
+  // const email = "joe@example.com";
   const [loading, setLoading] = useState(true);  // Add loading state
   // const email = localStorage.getItem("Email");
 

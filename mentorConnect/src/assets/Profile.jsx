@@ -5,7 +5,7 @@ import HeaderMentor from "./HeaderMentor";
 class MentorProfileData {
   constructor() {
     this.name = '';
-    this.email = 'mentor@gmail.com';
+    this.email = localStorage.getItem("Email");
     this.professionalTitles = [];
     this.educationalBackground = [];
     this.mentoringStyle = []; // New field for mentoring style
@@ -174,7 +174,7 @@ const MentorProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
   
-    const email = "mean@gmail.com"; // Retrieve email from local storage if needed
+    const email = localStorage.getItem("Email");// Retrieve email from local storage if needed
   
     const professionalTitlesArray = formData.professionalTitles.reduce((acc, title) => {
       if (title.expertise && title.years) {
@@ -267,7 +267,7 @@ const MentorProfile = () => {
                 type="email"
                 name="email"
                 // value={localStorage.getItem("mentorEmail")}
-                value="mentor@gmail.com"
+                value={localStorage.getItem("Email")}
                 onChange={handleChange}
                 placeholder="Enter your email"
                 readOnly

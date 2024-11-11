@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Book, Calendar, Clock, Globe, GraduationCap, MessageSquare, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-
+import Header from "./header";
 const ClassRequestForm = () => { // Accept mentorEmail as a prop
     const location = useLocation();
     const { mentorEmail } = location.state || {};
@@ -68,6 +68,9 @@ const ClassRequestForm = () => { // Accept mentorEmail as a prop
   };
 
   return (
+    <div>
+      <Header></Header>
+   
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-blue-50 p-4 sm:p-6 md:p-8">
       <div className="max-w-md sm:max-w-lg md:max-w-2xl mx-auto">
         <div className="text-center mb-8">
@@ -228,6 +231,7 @@ const ClassRequestForm = () => { // Accept mentorEmail as a prop
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
